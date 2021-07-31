@@ -1,0 +1,42 @@
+A typical client:
+    Whitelist: items that are accepted - ex. friends
+    Blacklist: items that are rejected - ex. spam
+    Need a way to find if an item is on the white list - search
+    Compare each element one by one - quadratic run time
+    After testing random inputs (Detailed in lecture), quadratic time is confirmed
+Binary Search:
+    Need a sorted array for the whitelist.
+    3 condition when comparing to an index in whitelist:
+        Same: that index is it
+        Smaller: search the smaller half
+        Larger: search the larger half
+    Notation: we are searching a[Lo,Hi) - not including hi
+    Compare the middle index between lo and hi
+    Binary search is order ~lg N (divided the array in half each time)
+    This works but how can the white list be sorted in the first place
+Insertion Sort:
+    There are many applications for sorting
+    Go to the next element and is 'bubbles' up to its correct position
+    With random tests it proves to be n^2 growth - makes sense for what is happening
+    Moore's Law: memory and run time doubles every two years
+    Scalability: Have an algo that can solve a doubled problem with a newer computer
+        Quadratic problems and more are not scalable.
+    With more memory the algo should be just as fast - scalable
+Mergesort:
+    Divided an array into two sorted components and merge them together
+    Need a secondary array (auxiliary - aux) to merge to two halves into
+    Merging is a two pointer method with adding the smaller one to aux
+    Notation: We are merging a[lo,mid) and a[mid,hi).
+    Instead of counting compares are counting the number of times a string moves
+    The number of moves is 2*n*lg(n) or just order n*lg(n)
+Longest repeated substring (LRS):
+    Problem: Given a long string find the longest substring that appears at least twice
+        There are applications in: genetics, cryptography, and music
+    Longest Common Prefix (LCP): Longest string in the beginning of two string - loop until not equal
+    The brute force method is to find the LCP on every substring s[i,Len).
+    Suffix Sorting: Make all N suffixes and sort them, find the LCP of adjacent suffixes
+        For a long time this was n*lg(n) and was scalable
+        Java used to take a substring as a reference of the whole string
+        Java changed substring to copy into a new string
+            Having a substring reference keeps java from freeing the original memory
+        In order to correct the program simple make a similar substring as java used to have

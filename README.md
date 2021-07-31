@@ -9,6 +9,7 @@ Each week or lecture is broken down into:
 * Supplements: Pages in the book and useful material links
     * Pages in the textbook corresponding with the topic
     * Links to the booksite and other material
+    * Additional java programs from supplement questions
 * Notes: My notes on the lecture and videos
 * Enrichment: Optional enrichment questions and my answers selected from the textbook. - _private_
 * Quiz: The graded quiz questions and answers - _private_.
