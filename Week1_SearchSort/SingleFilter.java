@@ -27,7 +27,7 @@ public class SingleFilter {
     }
 
     public static void main(String[] args) {
-        int len = 5;// Integer.parseInt(args[0]);
+        int len = Integer.parseInt(args[0]);
         Scanner in = new Scanner(System.in);
         aux = new String[len];
         String[] arr = new String[len];
