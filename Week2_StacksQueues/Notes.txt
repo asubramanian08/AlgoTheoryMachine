@@ -1,0 +1,53 @@
+APIs:
+    We are talking about data-structures starting with stacks and queues
+    Datatype vs. data-structures
+        Datatype: Set of values which operations could be performed on: int, string, complex ...
+        Data-Structures: Represent data and their relationship: array1D, array2D, linked list ...
+    Collections: "An ADT whose values are a multiset of items, all of the same type"
+    Stack: Add an item to the beginning (push), remove from the beginning(pop)
+    Queue: Add and item to the beginning (enqueue), remove from the end (dequeue)
+    Java Generics: Say public class CLASS_NAME <item>, then use item as the datatype
+    Stack API: push, pop, isEmpty, size; Queue API: enqueue, dequeue, isEmpty, size
+    Performance: A collection should have linear memory, unlimited size (not predefined), scalable
+Clients:
+    Using a queue: after reading all strings from a file, use a queue to keep adding strings to an 'array'
+    Autoboxing: Using a wrapper, because they are objects, instead of a primitive type with genetics.
+    Autoboxing is auto because java automatically or implicitly casts such types.
+    Solving an arithmetic expression with stack:
+        Infix: Put the operation in between the two numbers - use parenthesis
+            Solvable with two stacks, not specified how
+        Postfix: The operation is written after the two numbers - no parenthesis
+            Can easily convert to infix by finding the first operation and adding parenthesis
+            If it is number push is on the stack, otherwise pop 2 numbers do operation and push
+        Prefix: The operation is written before the two numbers - no parenthesis
+    Postscript language put a turtle with stack numbers and commends - publishing
+    Java virtual machine (JVM) uses stack to simplify java code
+Strawman Implementations:
+    The implementation limits the size and isn't generic (uses String)
+    Is there always a way to pop in sorted order - no, how many way are there?
+    Increment of decrement the size with a push or pop respectively
+    Using this implementation there is a lot of empty space
+    Using their definition of a data-structure this is not a stack, just behaves like one
+Linked List:
+    In a linked list each item has a link to another item
+    The size is variable, can only get to the next element
+    A listed list is a recursive and simplest linked data structure
+    Use each item as a private inner class or node, it contain the data and the link
+    A reference to null will represent the end of a list
+    Even with a single link a tree, circle and all other kinds of shapes can be made
+    Operations on a linked list:
+        Remove a node in the beginning: get the first item, make the first point to the next item
+        Add a node to beginning: second = prev first, first = the added node, first point to second
+        Iterate the list: Using the data of a reference, set the reference to its next
+        Add a node in the end
+Implementations:
+    We can make a push down stack (what the stack pictorially looks like) with linked lists
+    Can't make an array of generics, must cast is back to object
+    How to implement each method:
+        isEmpty: check if the start is null or is the array size is 0
+        push: set the second, make a new first that points to second, increment size
+        pop: store the item, set first as its next, decrement size, return the item
+        size: return the size
+    Space requirement is met: the number of used memory is the the same as the number of items
+    All the steps are constant time, performance requirements are met
+    Linked lists are an important data-structure that enables us to do things arrays can't
