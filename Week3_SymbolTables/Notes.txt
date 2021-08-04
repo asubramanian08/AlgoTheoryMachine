@@ -1,0 +1,53 @@
+APIs and Clients:
+    With mergesort and binary search, the whole list has to be resorted every time a new item is added
+    Adding, removing, and changing values is not supported with mergesort and binary search
+    Symbol tables(ST) are like arrays that are indexed by strings, this a similar to a dictionary
+    Symbol table operations: (keys are comparable)
+        1. Set key to value (add or change)
+        2. return a value for key
+        3. test if key is in the symbol table
+        4. Iterate though all the keys
+    One ST client is taking a list of string and print the frequency of each string
+    Java Generics: Have a generic class with two types (key, value) and "Key extends Comparable<Key>"
+    ST operations: 1. put, 2. get, 3. contains, 4. keys
+    Java foreach: a for loop with a colon that iterates an item in an iterable
+    The keys are ordered because it can extend the number of operations, also they make algo more efficient
+    Implementation of test client would be read a string if in ST put a get + 1 else put a 1 for frequency
+    Find what places a word occurs: get a string, if its there add the index, else add queue with index
+    There are many many applications of Symbol Tables: Contacts, dictionaries, searches, cloud storage
+A design challenge:
+    Performance matters, there a may key value pairs in the applications
+    Zipf's law: In natural language the ith most common word occur about t/i times, t=occurrences for i=1
+    Strawman implementation 1: have 2 array key and value and sort key and move value with it
+        The problem is adding a new key mean sorting again
+    Strawman implementation 2: using a linked list, adding element would match memory, but how to search
+    BTW: The put, get, and contains should have at least logarithmic time to get (constant is difficult)
+Binary Search Tree:
+    Binary Search Tree (BST): A doubly linked data structure like a tree that contains two children
+    Each BST node has a key, value, 2 links to other child nodes (those links could be null)
+    At each node, the left and right nodes (and below) have smaller and larger keys respectively
+    BST operations
+        Search for a key: go down the BST if search if less, greater, or equal to the current BST node
+            go to the left node, go the the right node, or return this value respectively
+        Add a key: similar to searching, if key found change val else replace null with new node
+        Traverse the BST: Recursively add left node, parent, and right node to queue in that order
+        Remove a key: (not covered)
+Implementation:
+    Performance: logarithmic functions, memory should be linear (scalable)
+    Node: Key, Value, left node, and right node
+    Generic: Discussed earlier about key and value
+    Test client: Also written before, the frequency of words
+    isEmpty: if the root == null
+    contains: get(key) != null
+    put, get, keys are as discussed
+    The full implementation is on page 38 of the lecture
+Analysis:
+    This is complicated because it depends of the order the keys are inserted
+    It could come in in sorted order, in that case the BST would be a lot like a linked list
+    In the most ideal or best case the tree is perfectly balanced so the height would be lg(n)
+    The BST takes about 2N*ln(N) or 1.39N*lg(N) compares
+    With their empirical testing, the algorithm scales in a random situation
+    There are balanced trees such as AVL trees and Red-Black trees that guarantee ~lg(N) performance
+    Red Black trees: Link are black or red, 2 reds can't be in a row, black links add to lg(N)
+        Java uses this algorithm, the instructor co-developed this data-structure
+    Hashing: More complicated, does support ordered operations, can be very efficient
