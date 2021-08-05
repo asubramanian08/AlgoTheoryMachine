@@ -1,0 +1,60 @@
+Overview:
+    We will be talking about theoretical computer science - it IS relevant to the CS field
+    Questions to be answered: What can computers do, what it its limit
+    Approach: Consider abstract simple machines and general problems
+    Why is theory important: Get a better understanding of things
+        there a practical problems that come from theory
+    Abstract machines: There are specific rules for what an input and output is
+    This lecture we will learn about Deterministic Finite Automata (DFA)
+    Formal Language: As set of strings that follow a specific rule
+    Regular Expressions (RE) will also be discussed this lecture
+    Does a RE represent strings from a natural language, what about DFA
+    What are the applications of all this, how does this relate to real world
+Regular Expressions:
+    Pattern Matching Problem: Is a string follow some rules, in a language
+    Applications in biology with genetic code, email addressing, ...
+    RE is a notation for specific a formal language: (operations)
+        Concatenation: write the REs sequentially
+        Wildcard: '.' - any character fits
+        Union: '|' - either this RE or another
+        Closer: '*' - repeat prev RE (in parenthesis or not) 0 or more times
+        Parenthesis: Enclose an RE and treat like one char (like 2*(1+2), the 1+2 is treated first)
+    Fragile X syndrome: .*gcg(cgg|agg)*ctg.*
+    Additional operations: 
+        one or more: '+' - instead of '*' for at least 1
+        range: '[ - ]' take any chars from x to y where x-y for example "[a-z]" is all lowercase chars
+        exactly x: '{x}' with repeat the prev RE x number of times instead if '*' or '+'
+        between x and y: '{x,y}' repeat anywhere from x to y times
+        negation: '^' so flip the RE bool ex. "^aeiou" would be a consonant
+        whitespace: '\s' can represent a space, tab, newline ...
+        Also '[]' is like a pick one
+    All the additional operations can be represented with original RE notation - useful but not essential
+    How to determine if a string matches a RE? - my guess is with a DFA
+DFAs:
+    A DFA is an abstract machine that reads an any length string, if the string is in a language it says
+    It can read each character from the string once from left to right
+    There are a finite number of states labeled yes or no, each transition is labeled with a symbol
+    From the start state based on the read character to changes states (transition label)
+    The finishing states gives what the DFA returns or which light turns on, in language or not
+    To code to simulate such a machine: An array of symbol table of what state to go from each state
+        with a given char, a boolean array that says if each state works or not - simple from there
+    Its a simple abstraction but we understand what it does - key concept for CS theory
+    Kleene's Theorem: There are two different ways to define language (RE and DFA) they are equivalent
+Applications:
+    To solve an RE we can't just build a DFA and simulate that - problem there can be exponential states
+    NFA (Nondeterministic Finite Automata) is like a DFA but there are 2 different states it can go to
+    GREP (Generalized Regular Expression Pattern matcher) builds and NFA and simulates that
+    GREP is very popular in many places - java matches uses GREP takes a RE
+    An example client of using REs is to print if a string matches a RE
+    Replace and parse strings with REs with replaceAll and split respectively in java
+    Can make a pattern matcher with Pattern.matcher() and Pattern.compile() - designed for pros
+    List of all RE applications on page 36 - "this is just the tip of the iceberg"
+Limitations:
+    The combinations of DFA and NFA are important in the real world
+    Are there languages that REs can't represent - what? More powerful machines
+    REs, DFA, and NFA are great pattern matching tools for programers
+    REs can't describe: Bit-strings with an equal number of 1s and 0s, strings that represent REs ...
+    Proof for Bit-strings ...: If DFA has N states, a string with N+1 0's will repeat states ...
+    There is a more powerful machine that can solve this problem - add a stack the the DFA
+    Adding another stack can solve even more problems like prime numbers
+    Is there a limit - 2 stack is just as powerful as a super computer, where is the limit? - Next lecture
