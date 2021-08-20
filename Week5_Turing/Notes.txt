@@ -1,0 +1,62 @@
+Context:
+    This is at the heart of theoretical computer science - developed by Alan Turing
+    Questions we are trying to answer: General purpose machine? Power limit on machines or computers?
+    Mathematics: Any system that can express arithmetic
+        Complete: Can prove if a statement is true or false
+        Consistent: Cannot prove a contradiction (2+2=5)
+        Decidable: There is a way to determine if every statement is true or false
+    All three conditions were proven false by Gödel and Turing
+A simple model of computation:
+    Take an example of adding numbers: Add the two numbers and place the answer and carry accordingly
+    Turing Machine: Similar the the DFA but can more left or right, write to a tape, and halt
+    At each state there is a yes, no, halt, left, or right; the process ends when it reaches Y, N, or H
+    In a turing machine the tape is infinite in length, no limit on # of steps, can leave output on tape
+    TM that subtracts 1: move the end, if 0 write 1, if 1 write 0 and halt, if # then just halt (inf loop)
+    Adding TM: adding x + y would be decrement y and increment 1 until y = 0 - TM is powerful enough
+    Simulate TM: Have two stacks for the left and right of what you are (if its empty there are #)
+        For each read there is a write so pop (right - could be left) stack and push (right) stack
+        To move in a direction push the pop of the direction you want to more to
+        After that the TM implementation is similar to the DFA
+Universality:
+    Can make a tape with a turing machine input and the symbols that can make a turing machine (to java)
+    Universal Turing Machine: is such a TM, it would do that the TM on the tape would do
+        Basically making a turing machine that does what the discussed java simulator does
+    On the booksite is a turning similar with a 24 state UTM - people have made ones with just 4 states
+    Computable task: A task that a turing machine can do
+    Turing proved that you can make one machine that can do any computable task
+    A machine that can simulate a TM can simulate a UTM and can do any computable task
+    Implication - that doesn't need to be different machine that do different operations, just make one
+    Conway's Game of Life: A cell is alive or dead, neighbors != 2 or 3 -> dies, neighbors = 3 -> born
+    In CGL, gliders are configurations that after some time make the same formation in a different place
+    There are configurations called glider guns that generate or shoot gilder out of the main cells,...
+    Can make a UTM with the game of life, the game of life has the same power of any other computer
+    If some machine or system can prove another and the other can prove it they are equivalent
+        There is no machine that can do more - only faster or more efficient but not more
+    The machine that we have can be studied for a deeper understanding of computation
+    Models have been derived since the turing machine including programming languages that are equivalent
+Computability:
+    How do we know what problems we can solve and those we can't?
+    Post's Correspondence Problem (PCP): N types of cards, no limit to # of cards of each type, each card
+        has a top and bottom string - Is there an arrangement with matching top and bottom strings
+        For example with cards (BAB,A),(A,ABA),(AB,B),(BA,B) yes - 13021 is the formation
+    It is impossible to write a program that solve the PCP
+    Halting Problem: Given a program and a input determine if the function gets in an infinite loop
+    Collatz conjecture: while if even - divide by 2, else x=3x+1, break if x==1 (MyNote-stops at?)
+    Halting problem for Collatz conjecture - this is very hard, might be impossible
+    Undecidable: there exists no algorithm that can solve the problem at hand (opposite of computable)
+    A yes-no problem is undecidable if no turing machine that can solve it, halting is undecidable
+    There are many such problems that no turing machine can solve, therefore no computer can solve them
+    Liar Paradox: each statement is true or false, "this statement if false" can't be either
+    Halt undecidability proof: Let there be a function strange(f) that halt if f(f) doesn't halt, take
+        strange(strange) - halts if strange(strange) doesn't, doesn't halt if strange(string) does
+Implications:
+    Don't have to try and solve a problem that can't be solved
+    This is the reason why debugging is hard - don't know if a code will loop forever ...
+    If a problem is undecidable, solving another problem that can solve that problem is also undecidable
+    Hilbert's 10th problem: Given a multi-variable function are there variables so it evaluates to 0
+    Data compression: compress some data into a smaller amount of data
+    Virus Identification: check if some code contains a virus
+    All the above problems are undecidable, self references
+    Key ideas of Turing's paper: Turing Machine, Equivalence of Programs, Universality, Computability,
+        and the Church-Turing thesis - a Turing machine is as powerful as they get
+    What Alan Turing did: bridged the gap between abstraction and reality

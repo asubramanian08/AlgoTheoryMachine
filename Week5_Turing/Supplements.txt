@@ -1,0 +1,4 @@
+Section 5.1, 5.2, and 5.4 pages 766-821
+Links: https://introcs.cs.princeton.edu/java/52turing/,
+https://introcs.cs.princeton.edu/java/53universality/,
+https://introcs.cs.princeton.edu/java/54computability/
