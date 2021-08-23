@@ -1,0 +1,65 @@
+Reasonable Questions:
+    Turing's works was on the difference between computable problems and undecidable
+    This week we will be learning about efficiency and complexity
+    Is there are general purpose computer, how is it made?
+    Where the the limits to what we can compute on digital computers and machines?
+    Traveling Salesman Problem (TSP): n cities and pairwise distances, reach all cities on distance < M
+    The brute force N! version of this problem will take a ridiculous amount of time - not about fast tech
+    Running Time: number of steps a function takes with an input of size N
+    Polynomial Running Times: The running time of the function is aN^b (not exponential) -forget scalable
+    Due the the extended Curch Turing thesis, the computer the program is run on it irrelevant
+    For this lecture a algo is efficient / poly-time if its has a polynomial running time for all inputs
+    We can only solve problems in practice that have efficient algorithms as a solution
+    Intractable: A problem that can be proved to not have a poly-time algorithm to solve it
+    4 problems we will be discussing in the lecture:
+        LSOLVE: Solving a series of liner equations for variable being real numbers
+        LP (Liner Programming): Find solution to real numbered variables given inequalities
+        ILP: The same as LP but the variables are either 1 or 0
+        SAT: Simultaneous boolean algebra and the variables are either true or false
+    Can solve LSOLVE with Gaussian elimination with a little bit of change
+    LP can be solved (but it was open for many decades) with ellipsoid algorithm
+    For both ILP and SAT there are no efficient algorithm solutions, prove algo or intractable
+    Can we prove that one problem is intractable, this can start an chain and prove others are as well
+    If two machines can be simulated by each other and cost is poly-time, the machines are equivalent
+    An algo that is poly-time in one machine is poly-time in all machines to which it is equivalent
+P and NP:
+    Search Problem: A problem where there's efficient algorithm that checks a solution
+    NP (): the class of all search problems Ex. TSP, ILP, SAT, FACTOR
+    Can do a brute force for all search problems, check all possibilities - not efficient
+    P: the class of all tractable search problems; Ex. SORT, 3-SUM, LSOLVE ...; NOTE: P is a subclass of NP
+    Types of problems / other ways of thinking about it: Search, Decision, Optimization
+    Some problems can be better framed as one of those types of problems; Ex. TSP as Optimization
+    NOTE: Normally P and NP classes are put in terms of decision but search is easier to understand
+    The ultimate question is does P = NP, if P!=NP that are problems that are intractable
+    Most people believe P != NP but it have not yet been proven
+    A Nondeterministic Machine can guess between multiple options (NFA is an example) - use queue?
+    If P!=NP then nondeterministic machines could have efficient algorithms - why?
+    With just NP problems you can check a solution but hasn't been proven
+        Its has not been proven that solving a problem is more difficult then checking a solution
+Poly-time Reductions:
+    Reduction is a mathematical tool that can help classify problems according to difficulty
+    In order to classify problems as not in P we have to assume that one problem (SAT) is intractable
+    Polynomial Time Reduction: X poly-time reduces to Y is X can be solved with Y in poly time
+        Constraints: Conversion of X to Y calls, Y calls, and Y return to solution are all efficient
+        Poly-time reduction is Transitive: If X reduces to Y and Y reduces to Z then X reduces to Z
+    Using reduction to establish intractability: X is intractable and X reduces to Y -> Y is intractable
+    SAT reduces to ILP: Convert "not" to (1-x) and "or" to "+" for, convert each line: 1=true, 0=false
+    There are many many algorithms that are intractable based on the assumption SAT is intractable pg 31
+NP-Completeness:
+    NP-Complete: An NP Complete problem is on where all NP problems poly-time reduces to it
+    SAT is NP-Complete: nondeterministic turing machine to SAT instance, solution to any NP problem
+    Since SAT is NP-Complete and all NP problems reduces to SAT then all those problems are NP-Complete
+Living with Intractability:
+    Approaching a solution to NP problems:
+        Don't to solving the problems
+        Are the types of instances different
+        Can you get a good enough solution
+        Exploit intractability
+    For example there is a 3D-ISING problem that had been worked on for 50 years but it was NP-Complete
+    Can take away the condition that the program has to work in all inputs - work with specific problem
+        There are solutions the intractable problems for reasonably large input sizes out there
+        Good enough solutions to known NP problems: SAT-Chaff, TSP-Concorde, and ILP-CPLEX
+    Breaking cryptography is intractable so crypto-currency is possible
+        US picks 2 long integers multiples them and takes advantage of the fact that FACTOR is NP
+    Someone proved that an N-bit integer can be factored in N^3 with a quantum computer - conversion?
+    Intractability is important and is something we need to understand - we could learn about the universe
