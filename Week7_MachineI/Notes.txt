@@ -1,0 +1,105 @@
+Overview:
+    This is completely different - demystify what goes on in a machine
+    Describe an imaginary machine that is similar to at home computers
+    TOY: was made for this course and similar to ancient computers as wells as cellphone processors
+    The perforce of learning about TOY is to get an understanding out computer architecture
+        How does a processor work, what are the components, and how do they interact
+    Machine-Language Programming: Lower level programming that computer uses to get tasks done
+    How does java code transform into the computer runs, understanding java references
+    Sometimes there are real life applications for coding in this lower level language
+    Over the next 4 lectures I will learn the abstractions that have informed processor design for decades
+    Everything in both the TOY machine and laptop is encoded in bits - easy to represent on or off
+    The bits are organized in sequences -> TOY has 16 bit ones but regular laptops have 64
+    Bit notations are inefficient - use hexadecimal, simple to convert - one letter represent 4 bits
+    Components of TOY:
+        Memory: Holds all the data and instruction that we work with in our programs; 256 words of 16 bits
+            long; connects to registers to compute then put back in memory; words have hex addresses that
+            go from 00 to FF; To addresses memory use array notation M[00]; 4 hex digits in each word
+        Registers ~variables: They are 16 words from 0 to F; 16 bits (4 hex digits); can be accessed like
+            R[0] similar to memory; space used for calculations and moving data to and from memory; By
+            convention R[0] is always = 0000 or just 0; Why not connect memory straight to ALU - too many
+            different addresses to specify memory (wasteful); Why not connect memory locations directly to
+            themselves - this will mach too many connections
+        Arithmetic and Logic Unit (ALU): The computational engine - calculator; hardware (circuit) that
+            implements all the data operations - described in future lectures
+        Program Counter (PC) and Instruction Register (IR) - abstractions: TOY operates on executing a
+            sequence of instructions; PC is the address of the next instruction to execute; IR is the
+            instruction being executed; Think about it while writing TOY code; Realise them when building a
+            circuit for TOY; Basis of the machine is on a fetch-increment-execute cycle; What exactly does
+            is written on the instructions
+    The memory, registers, and PC reflect program's execution and determines what the machine with do next
+    The IR and the ALU are used while running instructions, doesn't represent the state of the machine
+    Next we will learn what data is in the memory and what instructions can be performed on it
+Data Types:
+    What is the kind of data that TOY can process? - everything
+    Data Type: a set of values and operations on those values
+    TOY's data type is a word / 2's complement integer; the operations on it are arithmetic and bitwise
+    Any other data type (32 bit, floats, strings) has to be made with software on topic of TOY's basic int
+    This is how the the first computers were, eventually some of the data-types were added to hardware
+    To communicate the words we have to work with switches and lights
+    TOY's original datatype is a a 16 bit unsigned integer which goes from 0 to 2^16 - 1; it is worked with
+        in hex; some of the operations are +, -, and ==0?; overflow is ignored; conversion to decimal is
+        the ith bit on is add 2^i
+    With 2's complement we can work with negatives without much extra work; the range is -2^15 to 2^15-1;
+        can also test if positive or negative; how to represent a negative x is 2^16 - |x|; the leading bit
+        represents wether the number if positive or negative; having first bit represent sign and the
+        others show the number would result in there being 2 0s; another way to make something negative is
+        flip all the bits then add 1; adding one to the largest positive with give smallest negative
+    Bitwise operations (can also use in java): each operation is applied to each bit in the word
+        The operations are AND - can be used to isolate some bits, XOR, left and right shift - multiply and
+        divide powers of two
+Instructions:
+    RULE: any 16 bit value divines a TOY instruction - TOY will do something with those bits
+    Every 16 bit value has a we defined way of changing the machines state
+    The first bit specifies opcode (which instruction):
+        data-type operations; registers; 1-add, 2-subtract, 3-AND, 4-XOR, 5-leftShift, 6-rightShift
+        move data between registers and memory; memory and registers; 7-loadAddresses, 8-load, 9-store,
+            A-loadIndirect, B-storeIndirect
+        flow control (if, loops, functions); PC; 0-halt, C-branchIf0, D-brandIfPositive, E-jumpRegister,
+            F-jumpAndLink
+    2 formats for the next 3 hex digits: RR: Dest-R,Source1-R,Source2-R or A: Dest-R,Adder-M
+        Opcodes 0-6,A-B,E are RR the others are A; the difference is whether the opcode accesses memory
+    There is a table in the booksite that describes all the instructions
+    An example program is this: Start PC at 10, below specifies the memory:
+        10. 8A15 - load R[A] with the data from M[15]
+        11. 8B16 - load R[B] with the data from M[16]
+        12. 1CAB - make R[C] be R[A] + R[B]
+        13. 9C17 - store M[17] with R[C]
+        14. 0000 - halt
+        15. 0008
+        16. 0005
+        17. ???? after execution is 000D
+    When is memory an instruction: If the PC gets to that memory address it is an instruction
+Operating the machine:
+    How did people operate those machines - input and output
+    The interface is switches (2 digits of address, 4 digits of data), lights under every switch, function
+        buttons (LOAD, LOOK, STEP, RUN, ON/OFF)
+    LOAD - put data into address, LOOK - but light show the data in address, RUN - run from address
+Machine language programming:
+    TOY can support the same constructs as java: datatype, math + bitwise, setting memory, if and loop,
+        arrays - A and B, input and output, functions and libraries - E and F, linked structures
+    can control the flow of executions (if and loops) by using opcodes to can change the PC - C and D
+    Reading and writing data if not efficient if the above way, instead there is a tape with holes to
+        punch binary data into the computer; it would shine a light in order to read the binary and punch
+        holes to write out; would store M[FF] to write; would load from FF as reading;
+    Fibonacci numbers in TOY: PC starts at 40:
+        40. 7101 - R[1] = 1
+        41. 7A01 - R[A] = 1
+        42. 7B01 - R[B] = 1
+        43. 894C - R[9] = M[4C]
+        44. C94B - if (R[9] == 0) PC = 4B ~loop
+        45. 9AFF - write R[A] to output
+        46. 1CAB - R[C] = R[A] + R[B]
+        47. 1AB0 - R[A] = R[B] + R[0]
+        48. 1BC0 - R[B] = R[C] + R[0]
+        49. 2991 - R[9] = R[9] - R[1]
+        4A. C044 - set PC to 44
+        4B. 0000 - halt
+        4C. 000A - tells to loop 10 times
+    Look at pg 46 for how to decode any 16 bit or 4 digit hex number instruction
+    On the quiz be able to interpret an instruction and convert hex, to flip all bits XOR with all 1's,
+        figure out what a TOY program does
+    TOY can do basic data-types, ifs and loops, arrays, functions, infinite in and out put streams, and low
+        and high level constructs; making its input read and write can simulate a turing machine; 256 words
+        can still do many useful things; it is equivalent to a laptop
+    We will always want a faster computer with more memory but nothing has changed with what it can do
