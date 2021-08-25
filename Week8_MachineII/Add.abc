@@ -1,0 +1,7 @@
+10
+10 AFFF LOAD input into R
+11 9020 STORE R into 020
+12 AFFF LOAD input into R
+13 1020 ADD M[020] to R
+14 9FFF STORE R to output
+15 0000 HALT

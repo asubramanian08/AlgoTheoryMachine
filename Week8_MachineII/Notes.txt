@@ -1,0 +1,64 @@
+Perspective:
+    We are encouraged to look at some more TOY programs from the book
+    Putting TOY in context - historical and what it means that have a machine that operates on simple rules
+    TOY vs. Laptop: Both have data0types, conditionals, loops, arrays, functions, libraries, other
+        constructs Infinite input and output stream - can do anything java can, Is 256 words enough to do
+        anything? 1024 bits got man to the moon, there are 2^4328 states the machine can have
+    ENIAC: the first general purpose computer - controversy, no memory, data on punch cards, vacuum tubes
+        were uses as bits, it could run 300 multiplications per second
+    EDVAC: it the second computer thought of by Eckert and Mauchly
+    von Neumann wrote a memo on the train that summed up a stored program concept
+    EDSAC: could store programs, have data and command in binary, load programs into memory, and could
+        change programs, 2 registers, 16 instructions, input paper-tape and output was teleprinter
+    Stored Program architecture is what it in many computers now: Download programs - apps, write programs
+        the produce other programs as output - compiler, write programs that take programs - simulator
+A note of caution:
+    Array: the item are contiguous in memory starting at location a - in register, to get to a[i] do M[a+i]
+        Use opcodes A and B to store or load at a location given from a registers, pg 13, includes len of a
+    Code to read array from input:
+        10: 7101 - R[1] = 1
+        11: 8BFF - R[B] = input
+        12: 7A80 - R[A] = 80
+        13: 7900 - R[9] = 00
+        14: 22B9 - R[2] = R[B] - R[9]
+        15: C21B - if R[2] == 0 PC=1B
+        16: 1CA9 - R[C] = R[A] + R[9]
+        17: 8DFF - R[D] = input
+        18: BD0C - M[R[C]] = R[D]
+        19: 1991 - R[9] = R[9] + R[1]
+        1A: C014 - PC = 14
+        1B: ... use the array
+    Typical story: programmer makes code to process data, give data, use an array to store and process
+        data, and store output on a tape
+    Given but data or one with too much memory: Can go so far to overwrite code and take over computer
+        This buffer overflow attack can still be happening to overwrite code-microsoft 2004 with JPEGs...
+Practical implementations:
+    In von Neumann machines there is no difference between data and instructions - so buffer hack
+    Some advantage of this is you can save programs and load them later - don't have to re-enter it
+    Can also develope higher-level assembly languages on top of this code
+    Dumping: can't keep vacuum tube on forever, people made programs to dump contents on tape
+    Essence of DUMP code: start at 10 then write to output until it is at FF
+    Then the next day BOOT by starting at 10 and reading until FF - don't overwrite this program
+    Making assembly code: symbol not numbers, not changing source code - code can be moved in machine
+    Some people write in assembly languages because it directly converts to the machine code
+Simulation:
+    They wrote a java program to simulate a TOY, it is a simple machine and a simple code
+    All computers are now built this way - people simulate computers before actually building it
+    Even though TOY is not a physical machine it is still very real
+    Simulating TOY: TOY's input and output can be simulated by java's stdin and stdout, can take some code,
+        and start the PC at 10, have an array of 16 registers and 256 memory both integers, read in base
+        16, set IR to instruction (fetch and increment) then decode and execute
+    Decoding instruction: We are using shift and mask technique - shift left till 4 bits needs are in the
+        ones then & with 0xF; compute op, dest, s, t, and adder (would need adder or s and t)
+    Do a switch case on the opcode to execute instruction using the already declared variables
+    Somethings that are not included: R[0]=0, FF with Stdin and Stdout, putting code in different locations
+        not just at location 10, the full implementation is on the booksite
+    Can develope code for TOY on this, can also simulate this code on TOY (Ah!), can make more interactive
+        TOY simulator with the interface
+    Only when a simulator passes multiple test does it become hardware and get sold
+    We can just a simulator to just old software - could even be faster - for backward compatibility
+    After there are more and more simulators atop each-other people might forget how the original works
+    There is a lot of backwards compatibility that no-one knows whats happening - pg 41
+    Virtual memory, java virtual machine, and the cloud are all simulators
+    There are layers of abstraction - take something and build another on top of that, why build a machine?
+    They key concept in Turing's time in a UTM and John von Neumann's EDVAC is the program is data
