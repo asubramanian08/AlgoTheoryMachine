@@ -1,0 +1,71 @@
+Building Blocks:
+    We are going to talk about circuits - next two lectures will be about how computers are built
+    We are going to start by looking at the basic building block
+    Combinational Circuits: digital circuits (0 or 1, vs. analog) with no feedback (loops, vs. sequential)
+        Why use them? They are accurate, reliable, general purpose, fast, cheap
+        Everything is either on or off - goes with the real world nicely
+        Wire propagates on or off - tell whether it is on of off
+        A switch controls the propagation of on or off though wires
+    Wires: they are ether on (1) and connected to power, off (0) or not connected to power
+        Any wire that is connected to an on wire it also on, thick mean on and thin means off,
+        With circuits the "flow" is usually from top to bottom or left to right - to understand
+    Controlled Switch (transistors): This is how you control how wires propagate info, simplest case is
+        when there is a control (input) and output, output is not of control - if on it blocks flow from
+        power, a more general switch it to have control, data, and output - if control is off output = data
+        otherwise the output is off because control blocks flow
+    The above model comes from pass transistors and can be found in integrated circuits
+    Relay (early implementation of Controlled Switch): It controls a switch with a magnet, if the magnet
+        turns on a spring moves toward it breaking apart the wire and cutting flow
+    The switches and wires are abstractions - the implementation of them is irrelevant
+    Switches do effect efficiency any better ones will make faster computers
+    One challenge in the real world is that every one of the billions of switches and wires has to work
+    Even with these simple abstractions it is hard to understand what is going one - layers of abstraction?
+Boolean algebra:
+    Boolean algebra: (George Boole in 1840) for logic problems - it will help understand circuits:
+        All the variable are true or false values, AND(*) OR(+) and NOT(') are all operators of it
+        Can make boolean formulas of this notation
+    Truth Tables: it is a way of describing boolean functions, a row for every possible inputs with output
+    Can establish identities (if expressions are equivalent) by checking if the truth tables match
+    Truth tables can prove DeMorgan's Laws: (xy)' = (x' + y') = NAND and (x + y)' = x'y' = NOR
+    There are 2^4 or 16 possible functions on two boolean values - all listed on pg 17 (2^(2^3) for 3 vars)
+    Some bool functions with 3 variables: AND, OR, NOR, MAJ(majority more 1 than 0),ODD (odd numbers of 1s)
+    If there are N variables there are 2^(2^N) functions that can define them
+    Bool func can be represented as a sum of products: any 1 in func set ANDs accordingly and OR together
+        With that a set of bool func are universal if it can implement any bool func
+        This means that a circuit just need to be able to implement a universal set - {AND, OR, NOT}
+Digital Circuits:
+    Boolean algebra it directly related to design a circuit - by Claude Shannon in 1937
+    Second abstraction - logic gates - make circuits that implement bool func
+        NOT gate is made with a simple switch
+        NOR is just two switches back to back representing the variable - passes if both are off
+        OR put a not after a NOR
+        By DeMorgan's Law xy=(x'+y') so put a NOT to the inputs of x and y if they are both true
+            the NOT will make them false allowing power to flow (NOR needs two false)
+    Having a gate with several inputs - ex. multi-way OR is do serval switches with data then a not
+    Generalized AND gates - like a multi-way AND without using switches on wanted 0s (is NOR this ...)
+    A decodes that translates a binary address to turning on that line - generalized multi-way AND
+    Demultiplexes similar to the decoder by the addressed value gets the data line - add a NOT x
+    Decoder / Demux the addressed line with be on and data for it will be x - control memory
+    Can make any function with this method - multi-way AND for each 1 in output and then multi-way OR
+    With that we can make another abstraction that computes any bool func - box with input lines and output
+    Sometimes there are better ways of making these functions then we should use those
+    Encapsulation: Building layers of abstraction:
+        The hardware design with mirror the software design
+        That way building a circuit from wires and switches is the implementation
+        It can be defined by input, control, and output - API
+Adder circuit:
+    We are trying to build a circuit to ADD two numbers - what will be in the ALU of TOY
+    Make an add function with n-bit numbers - there are 2n input lines n for each number and n output lines
+    Add one bit at a time by adding x_i, y_i, c_i: c_i+1 if 2 or 3 1s (MAJ); sum z_i is ODD
+    Set the next ones carry to result of MAJ and output the result of ODD setting c_0 to false
+    The Layers of abstraction: on/off, controlled switches, gates (AND,NOT,OR), Bool Func, Adder, ALU, CPU
+Arithmetic/logic unit:
+    A basic design to TOY's circuit: abstraction layer
+        Make modules - organized groups of circuit (ALU, memory, registers, PC, IR)
+        Have busses (group of wires that transport info) connect modules - input at top, output at bottom
+        Control lines: single wires that control circuit behavior - blue running through circuit
+    The 8-bit ALU: busses have 8 wires, 2 input busses and 1 output, control lines of ADD, XOR, and AND
+    How do we know which output to select: have one-hot muxes that runs to the output
+    One-hot muxes: take m selection and m data lines, AND the selection and data, then OR all the outputs
+        It can be using in ALU and memory; no direct connection to data to output-virtual selection switch
+    Next time we will build registers, memory, connections, and control

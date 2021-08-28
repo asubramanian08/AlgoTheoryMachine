@@ -1,0 +1,4 @@
+Section 7.1, 7.2, and 7.3 pages 985-1047
+Links: https://introcs.cs.princeton.edu/java/71boolean/, https://introcs.cs.princeton.edu/java/72circuit/,
+https://introcs.cs.princeton.edu/java/73combinational/
+The book was published after this lecture was made and contains improvements
