@@ -1,0 +1,56 @@
+Overview:
+    Put all those things together to understand what a laptops CPU looks like
+    There is an integrated circuit in the mother board that is the CPU - central processing unit
+    We did combinational circuits and got ALU but this lecture we are doing memory and sequential circuits
+    Were are going to make these circuits in a smaller version of TOY -> TOY-8 smaller memory and word size
+    TOY-8: 8-bit words, 16 word memory, 1 register, 4-bit PC, 1 instruction structure, 8 instructions: pg 5
+    TOY-8's CPU has:ALU(adder,AND,XOR), memory, register, PC, IR, control(tell CPU), clock(time executions)
+    We are looking at TOY-8 because TOY would be 5 times wider - laptop hundreds of thousands times wider
+Bits, registers and memory:
+    Combinational circuits don't remember things, sequential circuits have feedback or loops
+    Abstractions: on or off, wire propagates on or off, switch controls wires, flip-flop remembers a value
+    Flip-flop: Two-switches blocking each-other remembers which switches first; three switches will make an
+        unstable circuit - so make small feedback loops; SR flip-flop: R and S control lines; pg 12-13; It
+        is like two coupled NOR's where R sets it to 0 and S sets it to 1
+    Memory bit: Have a input and WRITE, S = WRITE AND input and R = WRITE AND NOT input, WRITE forces set
+    Clock: assumes real world osculating clock, pulse time enough for a flip-flop, pulse space enough to
+        stabilize many flip-flops, hard to know needed rest time - bSearch it, run and halt control wires
+        to clock, attach flip-flop to clock - clock signal is WRITE wire to it, fetch is not of flip-flop
+        output and execute is flip-flop output, feed fetch to flip-flop input, pg 15
+    Register: 4 bit circuits, WRITE tells to set input bus on bits, output bus always available
+        Use something like this for PC, IR, and register
+    Memory bank: n-bit address, 2^n words, on WRITE set addressed word to input, output is of address
+        Use a decoder/demux settings giving WRITE and enable, collect memory with one-hot muxes to output
+    Memory bank is TOY-8's memory, input bus: register, output bus: register and IR, address: PC and IR
+Program counter:
+    Program counter connects components together and change state in controlled way, PC ~ mini computer
+    In order to tie together: interface (busses, control wires), component connections, control sequence
+    The PC need the increment (circuits) and multiple busses to same circuit ... thought
+    Increment PC by 1: could use an adder, specific circuit sets carry to 1 without second integer pg 25
+    With multiple busses: output: split wire, input: selector switch (bus mux) multiple one-hot mux pg 27
+    PC: input bus, INCREMENT, LOAD, WRITE, output bus; input to bus mux, incrementor to bus mux, bus mux
+        to PC register, PC register to incrementor - long feedback, PC register to output; pg 30-31
+Components and connections:
+    The CPU is that circuit inside the machine - not dealing too much with outside world interface
+    Component buss connections: - based on instructions
+        Fetch: PC to memory, memory to IR
+        Halt: control line
+        AND, add, XOR: IR adder to memory, memory to ALU, register to ALU, ALU to register
+        load address: IR adder to register
+        load: IR adder to memory, memory to register
+        store: IR adder to memory, register to memory
+        branchIf0: IR adder to PC
+    Control Wires: Mostly from control
+        Clock: RUN and HALT
+        Control: FETCH, FETCH WRITE, EXECUTE, EXECUTE WRITE
+        ALU: AND, XOR, ADD
+        R mux: R MUX ALU, R MUX MEM, R MUX IR
+        IR: IR WRITE
+        R: R WRITE
+        memory: MEMORY WRITE
+        PC: PC LOAD, PC INCREMENT, PC WRITE
+        adder mux: ADDER MUX PC, ADDER MUX IR
+    Control: Input:Clock control, opcode, register; Output:other control wires; demux->control lines; pg 39
+    Goes over sample program pg 40; TOY'S COMPLETE IMPLEMENTATION pg. 41-42
+    TOY has 1 bit per square centimeter - computer might have 25 billion
+    Look at long answer for how computer works on pg. 44
